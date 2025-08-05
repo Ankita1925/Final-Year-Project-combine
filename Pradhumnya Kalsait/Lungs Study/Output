@@ -1,0 +1,69 @@
+    Age  Gender Smoking Status  ...  Treatment Type Hospital Visits Recovered
+0  71.0  Female             No  ...         Therapy            14.0       Yes
+1  34.0  Female            Yes  ...         Surgery             7.0        No
+2  80.0    Male            Yes  ...             NaN             4.0       Yes
+3  40.0  Female            Yes  ...      Medication             1.0        No
+4  43.0    Male            Yes  ...         Surgery             NaN       Yes
+
+[5 rows x 8 columns]
+               Age  Lung Capacity  Hospital Visits
+count  4900.000000    4900.000000      4900.000000
+mean     54.449796       3.501865         7.528571
+std      20.126882       1.461179         3.996401
+min      20.000000       1.000000         1.000000
+25%      37.000000       2.220000         4.000000
+50%      54.000000       3.480000         8.000000
+75%      72.000000       4.800000        11.000000
+max      89.000000       6.000000        14.000000
+    Age  Gender  Smoking Status  ...  Treatment Type  Hospital Visits  Recovered
+0  71.0     2.0             0.0  ...             1.0             14.0        1.0
+1  34.0     2.0             1.0  ...             2.0              7.0        0.0
+2  80.0     1.0             1.0  ...             NaN              4.0        1.0
+3  40.0     2.0             1.0  ...             0.0              1.0        0.0
+4  43.0     1.0             1.0  ...             2.0              NaN        1.0
+
+[5 rows x 8 columns]
+Age                300
+Gender             300
+Smoking Status     300
+Lung Capacity      300
+Disease Type       300
+Treatment Type     300
+Hospital Visits    300
+Recovered          300
+dtype: int64
+Age                0
+Gender             0
+Smoking Status     0
+Lung Capacity      0
+Disease Type       0
+Treatment Type     0
+Hospital Visits    0
+Recovered          0
+dtype: int64
+<class 'pandas.core.frame.DataFrame'>
+Index: 3236 entries, 0 to 5199
+Data columns (total 8 columns):
+ #   Column           Non-Null Count  Dtype  
+---  ------           --------------  -----  
+ 0   Age              3236 non-null   float64
+ 1   Gender           3236 non-null   float64
+ 2   Smoking Status   3236 non-null   float64
+ 3   Lung Capacity    3236 non-null   float64
+ 4   Disease Type     3236 non-null   float64
+ 5   Treatment Type   3236 non-null   float64
+ 6   Hospital Visits  3236 non-null   float64
+ 7   Recovered        3236 non-null   float64
+dtypes: float64(8)
+memory usage: 227.5 KB
+                      Age    Gender  ...  Hospital Visits  Recovered
+Age              1.000000 -0.010937  ...         0.031404   0.004965
+Gender          -0.010937  1.000000  ...        -0.001322   0.005513
+Smoking Status  -0.011067  0.030138  ...        -0.010259  -0.023698
+Lung Capacity    0.021856  0.000871  ...         0.007552   0.018065
+Disease Type     0.022568  0.009963  ...         0.017081  -0.040734
+Treatment Type   0.034648  0.005771  ...         0.013345   0.008826
+Hospital Visits  0.031404 -0.001322  ...         1.000000  -0.030111
+Recovered        0.004965  0.005513  ...        -0.030111   1.000000
+
+[8 rows x 8 columns]
