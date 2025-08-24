@@ -112,6 +112,7 @@ For queries or collaborations:
 
 - 📧 Pradhumnya Kalsait – [PradhumnyaKalsait@gmail.com](mailto:PradhumnyaKalsait@gmail.com)  
 - 📧 Ankita Sawant – [ankitasawant8998@gmail.com](mailto:ankitasawant8998@gmail.com)
+- 📧 Ayush Mahadik – [ayushmahadik49@gmail.com](mailto:ayushmahadik49@gmail.com)
 
 ---
 
