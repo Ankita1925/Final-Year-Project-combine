@@ -14,7 +14,7 @@ This is the official repository for our Final Year B.E. Computer Engineering pro
 | 🧠 Onkar Onsode       | *To be updated*                       | *To be updated*                      |
 | 💡 Ankita Sawant      | [@Ankita1925](https://github.com/Ankita1925) | ankitasawant8998@gmail.com           |
 | 🛠️ Ayush Mahadik      | [@Ayush](https://github.com/Am-bot-coder)                      | ayushmahadik49@gmail.com                      |
-| 📊 Pradhumnya Kalsait | [@Dexter1119](https://github.com/Dexter1106) | pradhumnyakalsait@gmail.com         |
+| 📊 Pradhumnya Kalsait | [@Dexter1106](https://github.com/Dexter1106) | pradhumnyakalsait@gmail.com         |
 
 ---
 
