@@ -12,7 +12,9 @@ from flask_jwt_extended import jwt_required
 from app.services.lung_service import predict_lung_disease
 from app.utils.jwt_utils import role_required
 from app.utils.constants import UserRole
-
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+# -------------------------------------------------
+# Blueprint
 lung_blueprint = Blueprint("lung", __name__)
 
 """
@@ -28,14 +30,19 @@ lung_blueprint = Blueprint("lung", __name__)
 ################################################################
 """
 @lung_blueprint.route("/predict", methods=["POST"])
-@jwt_required()
-@role_required(UserRole.DOCTOR)
-def predict_lung():
-    
+@jwt_required()   
+def predict():
+    print("JWT IDENTITY:", get_jwt_identity())
+    print("JWT CLAIMS:", get_jwt())
 
-    input_data = request.get_json()
-    print("INPUT DATA:", input_data)
+    try:
+        if "image" not in request.files:
+            return jsonify({"error": "Image file missing"}), 400
 
-    prediction_result = predict_lung_disease(input_data)
+        image_file = request.files["image"]
+        result = predict_lung_disease(image_file)
+        return jsonify(result), 200
 
-    return jsonify(prediction_result), 200
+    except Exception as e:
+        print("Lung prediction error:", e)
+        return jsonify({"error": "Prediction failed"}), 500

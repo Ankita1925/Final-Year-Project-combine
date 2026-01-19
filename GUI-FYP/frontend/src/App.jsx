@@ -19,6 +19,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Unauthorized from "./pages/Unauthorized";
 import Kidney from "./pages/organs/Kidney";
 
+import Heart from "./pages/organs/Heart";
+
 import Lung from "./pages/organs/Lung";
 
 function App() {
@@ -68,6 +70,16 @@ function App() {
               </RoleGuard>
             }
           />
+
+          <Route
+            path="/organ/heart"
+            element={
+              <RoleGuard allowedRoles={["DOCTOR"]}>
+                <Heart />
+              </RoleGuard>
+            }
+          />
+          
 
           {/* ================= FALLBACK ================= */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -28,12 +28,17 @@ kidney_blueprint = Blueprint("kidney", __name__)
 ################################################################
 """
 @kidney_blueprint.route("/predict", methods=["POST"])
-@jwt_required()
-@role_required(UserRole.DOCTOR)
-def predict_kidney():
-    
+def predict():
+    try:
+        data = request.get_json()
+        print("RECEIVED INPUT:", data)   # 👈 DEBUG
 
-    input_data = request.get_json()
-    prediction_result = predict_kidney_disease(input_data)
+        if not data:
+            return jsonify({"error": "Invalid JSON input"}), 400
 
-    return jsonify(prediction_result), 200
+        result = predict_kidney_disease(data)
+        return jsonify(result), 200
+
+    except Exception as e:
+        print("❌ Kidney prediction error:", str(e))
+        return jsonify({"error": str(e)}), 500

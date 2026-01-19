@@ -42,14 +42,9 @@ function Navbar() {
           DiseaseAI
         </Link>
 
-        {userRole === "DOCTOR" && (
-          <Link
-            to="/organ/lung"
-            className="text-textsecondary hover:text-primary transition"
-          >
-            Lung Prediction
-          </Link>
-        )}
+        {/* {userRole === "DOCTOR" && (
+
+        )} */}
 
         {userRole === "ADMIN" && (
           <Link
