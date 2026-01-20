@@ -16,8 +16,12 @@ import numpy as np
 _predictor = None
 
 # Configuration
-MODEL_DIR = '../models_heartcsv'  # Adjusted path relative to this file location
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+MODEL_DIR = os.path.join(
+    BASE_DIR,
+    "ml_models",
+    "models_heartcsv"
+)
 class HeartDiseasePredictor:
     def __init__(self):
         self.model = None
