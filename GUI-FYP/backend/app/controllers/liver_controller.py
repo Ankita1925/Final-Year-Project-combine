@@ -12,6 +12,11 @@ from flask_jwt_extended import jwt_required
 from app.services.liver_service import predict_liver_disease
 from app.utils.jwt_utils import role_required
 from app.utils.constants import UserRole
+from app.services.liver_service import (
+    predict_liver_disease,
+    generate_report,
+    generate_pdf_from_report
+)
 
 liver_blueprint = Blueprint("liver", __name__)
 
