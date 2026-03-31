@@ -81,11 +81,7 @@ def create_app():
         
         return {"status": "Backend running successfully"}, 200
     
-    CORS(
-        application,
-        resources={r"/api/*": {"origins": "http://localhost:5173"}},
-        supports_credentials=True
-    )
+    CORS(application, origins=["http://localhost:5173", "http://localhost:5174"], supports_credentials=True)
     
     application.register_blueprint(lung_blueprint, url_prefix="/api/lung")
     application.register_blueprint(liver_blueprint, url_prefix="/api/liver")

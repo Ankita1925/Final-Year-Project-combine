@@ -19,7 +19,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Unauthorized from "./pages/Unauthorized";
 import Kidney from "./pages/organs/Kidney";
 
+
 import Heart from "./pages/organs/Heart";
+import Liver from "./pages/organs/Liver";       
 
 import Lung from "./pages/organs/Lung";
 
@@ -76,6 +78,15 @@ function App() {
             element={
               <RoleGuard allowedRoles={["DOCTOR"]}>
                 <Heart />
+              </RoleGuard>
+            }
+          />
+
+          <Route
+            path="/organ/Liver"
+            element={
+              <RoleGuard allowedRoles={["DOCTOR"]}>
+                <Liver />
               </RoleGuard>
             }
           />
