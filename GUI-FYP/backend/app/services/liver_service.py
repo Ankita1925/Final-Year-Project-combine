@@ -269,6 +269,7 @@ import joblib
 import numpy as np
 import logging
 import os
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -291,7 +292,9 @@ def _load(rel_path: str):
 
 # ── Primary voting classifiers ────────────────────────────────────────
 model1 = _load("cirhosis/VotingClfCirh.pkl")   # 4-class: 0=Normal,1=Hepatitis,2=Fibrosis,3=Cirrhosis
-model2 = _load("yesno/VotingClfCirh.pkl")       # binary:  0=Early Liver Disease, 1=Healthy
+model2 = _load("yesno/yesnoClfCirh.pkl")       # binary:  0=Early Liver Disease, 1=Healthy
+scaler1 = _load("scalers/scaler1.pkl")
+scaler2 = _load("scalers/scaler_stage2.pkl")
 
 # ── Sub-models for Model 1 (cirhosis dataset — 4-class) ───────────────
 model1_sub = {
@@ -396,12 +399,7 @@ def predict_liver_disease(input_data: dict) -> dict:
         inr    = input_data.get("inr")
         sodium = input_data.get("sodium")
 
-        # ── Unit conversions for Model 1 (trained on European/SI units) ──
-        #   ALB:  g/dL  → g/L      × 10
-        #   PROT: g/dL  → g/L      × 10
-        #   BIL:  mg/dL → µmol/L   × 17.1
-        #   CREA: mg/dL → µmol/L   × 88.4
-        #   CHOL: mg/dL → mmol/L   ÷ 38.67
+        # ── Unit conversions (MUST come before DataFrame build) ───
         alb_gL    = alb  * 10.0
         prot_gL   = prot * 10.0
         bil_umol  = bil  * 17.1
@@ -412,13 +410,28 @@ def predict_liver_disease(input_data: dict) -> dict:
                      "BIL %.1f µmol/L | CREA %.1f µmol/L | CHOL %.2f mmol/L",
                      alb_gL, prot_gL, bil_umol, crea_umol, chol_mmol)
 
-        # ── Stage 1 (12 features) ─────────────────────────────────
-        m1_input = np.array([[
-            age, gender,
-            alb_gL, alp, alt, ast,
-            bil_umol, che, chol_mmol,
-            crea_umol, ggt, prot_gL
-        ]], dtype=np.float64)
+        # ── Stage 1 (12 features — named DataFrame, NOT np.array) ─
+        m1_input = pd.DataFrame([{
+            "Age":  age,
+            "Sex":  gender,
+            "ALB":  alb_gL,
+            "ALP":  alp,
+            "ALT":  alt,
+            "AST":  ast,
+            "BIL":  bil_umol,
+            "CHE":  che,
+            "CHOL": chol_mmol,
+            "CREA": crea_umol,
+            "GGT":  ggt,
+            "PROT": prot_gL,
+        }])
+
+        m1_scaled = scaler1.transform(m1_input)
+
+        m1_input = pd.DataFrame(m1_scaled, columns=[
+    "Age", "Sex", "ALB", "ALP", "ALT", "AST",
+    "BIL", "CHE", "CHOL", "CREA", "GGT", "PROT"
+])
 
         pred1  = int(model1.predict(m1_input)[0])
         probs1 = _get_submodel_probabilities(model1_sub, m1_input)
@@ -435,16 +448,18 @@ def predict_liver_disease(input_data: dict) -> dict:
 
         # ── Routing logic ─────────────────────────────────────────
         if pred1 == 0:
-            # Stage 2 — Model 2 uses conventional units (no conversion)
             result["secondary_model_used"] = True
             ag = _calculate_ag_ratio(alb, prot) or 0.0
 
+            # Stage 2 — still np.array until you confirm model2 feature names
             m2_input = np.array([[
                 age, gender,
                 bil, direct_bil,
                 alp, alt, ast,
                 prot, alb, ag
             ]], dtype=np.float64)
+
+            m2_input = scaler2.transform(m2_input)
 
             pred2  = int(model2.predict(m2_input)[0])
             probs2 = _get_submodel_probabilities(model2_sub, m2_input)
@@ -505,7 +520,6 @@ def predict_liver_disease(input_data: dict) -> dict:
             "model2_probabilities":   None,
             "recommendation":         "INVALID INPUT — check all fields.",
         }
-
 
 # ====================================================================
 # SECTION 2 — MELD & CHILD-PUGH SCORING
