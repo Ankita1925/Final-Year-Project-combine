@@ -1,15 +1,5 @@
-####################################################################
-#
-# File Name :   liver_controller.py
-# Description : liver prediction API endpoints
-# Author      : Pradhumnya Changdev Kalsait
-# Date        : 17/01/26
-#
-####################################################################
-
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Response
 from flask_jwt_extended import jwt_required
-from app.services.liver_service import predict_liver_disease
 from app.utils.jwt_utils import role_required
 from app.utils.constants import UserRole
 from app.services.liver_service import (
@@ -20,25 +10,49 @@ from app.services.liver_service import (
 
 liver_blueprint = Blueprint("liver", __name__)
 
-"""
-################################################################
-#
-# Function Name : predict_liver
-# Description   : API endpoint for liver disease prediction
-# Author        : Pradhumnya Changdev Kalsait
-# Date          : 17/01/26
-# Prototype     : Response predict_liver(void)
-# Input Output  : (0 input, 1 output)
-#
-################################################################
-"""
+
 @liver_blueprint.route("/predict", methods=["POST"])
 @jwt_required()
 @role_required(UserRole.DOCTOR)
 def predict_liver():
-    
 
-    input_data = request.get_json()
-    prediction_result = predict_liver_disease(input_data)
+    try:
+        input_data = request.get_json()
 
-    return jsonify(prediction_result), 200
+        if not input_data:
+            return jsonify({"error": "No input data provided"}), 400
+
+        # ONLY prediction
+        prediction_result = predict_liver_disease(input_data)
+
+        return jsonify(prediction_result), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@liver_blueprint.route("/report", methods=["POST"])
+@jwt_required()
+@role_required(UserRole.DOCTOR)
+def generate_report_pdf():
+
+    try:
+        input_data = request.get_json()
+
+        # Step 1: prediction
+        prediction = predict_liver_disease(input_data)
+
+        # Step 2: report
+        report = generate_report(input_data, prediction)
+
+        # Step 3: PDF
+        pdf = generate_pdf_from_report(report)
+
+        return Response(pdf, mimetype='application/pdf')
+
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+
+
+
