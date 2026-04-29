@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COPD AI System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+<h1>COPD AI Screening System</h1>
+
+<!-- ================= STAGE 1 ================= -->
+<h2>Stage-1: Breath Screening</h2>
+<form id="stage1Form" enctype="multipart/form-data">
+    <input type="file" name="file" id="breathFile" accept=".csv" required>
+    <button type="submit">Run Stage-1</button>
+</form>
+
+<div id="stage1Result"></div>
+
+<hr>
+
+<!-- ================= STAGE 2 (Initially Hidden) ================= -->
+<div id="stage2Section" style="display:none;">
+
+    <h2>Stage-2: Severity Prediction</h2>
+
+    <form id="stage2Form">
+        <input type="number" name="Age" placeholder="Age" required>
+        <input type="number" name="Gender" placeholder="Gender (0/1)" required>
+        <input type="number" name="BMI, kg/m2" placeholder="BMI" required>
+        <input type="number" name="Height/m" placeholder="Height (m)" required>
+        <input type="number" name="History of Heart Failure" placeholder="Heart Failure" required>
+        <input type="number" name="working place" placeholder="Working Place" required>
+        <input type="number" name="mMRC" placeholder="mMRC" required>
+        <input type="number" name="status of smoking" placeholder="Smoking Status" required>
+        <input type="number" name="Pack History" placeholder="Pack History" required>
+        <input type="number" name="Vaccination" placeholder="Vaccination" required>
+        <input type="number" name="Depression" placeholder="Depression" required>
+        <input type="number" name="Dependent" placeholder="Dependent" required>
+        <input type="number" name="Temperature" placeholder="Temperature" required>
+        <input type="number" name="Respiratory Rate" placeholder="Respiratory Rate" required>
+        <input type="number" name="Heart Rate" placeholder="Heart Rate" required>
+        <input type="number" name="Blood pressure" placeholder="Blood Pressure" required>
+        <input type="number" step="0.01" name="Oxygen Saturation" placeholder="Oxygen Saturation" required>
+        <input type="number" name="Sputum" placeholder="Sputum" required>
+
+        <br><br>
+        <button type="submit">Run Stage-2</button>
+    </form>
+
+    <div id="stage2Result"></div>
+</div>
+
+<script src="/static/js/main.js"></script>
+
+</body>
+</html>

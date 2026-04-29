@@ -1,0 +1,22 @@
+COPD,,,,,SMOKERS,,,,,CONTROL,,
+COPD_patient_code,Gender,Age,Severity_level_(estimated),Main_cause,SMOKERS_patient_code,Gender,Age,Span_of_habit_(years),Relevant notes,CONTROL_patient_code,Gender,Age
+D01,M,92,"2,3",SMOKING,S01,M,35,12,Active smoker,C01,M,26
+D02,M,75,"2,3",SMOKING,S02,M,27,3,Active smoker,C02,F,18
+D03,F,84,4,SOOT,S03,M,72,30,Active smoker with Diagnosed with COPD,C03,F,29
+D04,M,67,"1,2",SMOKING,S04,M,67,40,Active smoker with Diagnosed with COPD,C04,F,52
+D05,M,76,"1,2",SMOKING,,,,,,C05,M,53
+D06,F,83,4,SOOT,,,,,,C06,M,29
+D07,F,103,4,SOOT,,,,,,C07,M,67
+D08,F,85,"1,2",SOOT,,,,,,C08,F,85
+D09,F,72,"1,2",SOOT,,,,,,C09,M,74
+D10,M,91,4,SMOKING,,,,,,C10,M,88
+D11,M,78,2,SMOKING,,,,,,,,
+D12,M,86,"2,3",SMOKING,,,,,,,,
+D13,M,79,"2,3",SMOKING,,,,,,,,
+D14,F,58,"2,3",SOOT,,,,,,,,
+D15,F,78,1,SMOKING,,,,,,,,
+D16,M,57,1,SMOKING,,,,,,,,
+D17,M,53,1,SMOKING,,,,,,,,
+D18,M,72,"2,3",SMOKING,,,,,,,,
+D19,M,84,"2,3",SOOT,,,,,,,,
+D20,F,55,1,SOOT,,,,,,,,
